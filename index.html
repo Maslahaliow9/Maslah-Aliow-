@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MASLAH CYBER INTELLIGENCE™ 😎</title>
+<meta name="description" content="Your digital security is about to be tested. (Harmless prank!)">
+<meta property="og:title" content="MASLAH CYBER SECURITY TERMINAL">
+<meta property="og:description" content="Your digital security is about to be tested…">
+<meta name="theme-color" content="#000000">
+<!--
+HARMLESS PRANK. This page never reads your device, camera, mic, files,
+contacts, location, M-PESA, passwords or any personal data. No backend,
+no tracking, no network requests. Everything is pure animation.
+
+DEPLOY
+Cloudflare Pages: dash.cloudflare.com → Workers & Pages → Create → Pages →
+  "Upload assets" → drag a folder containing this index.html → Deploy.
+GitHub Pages: new repo → upload index.html → Settings → Pages →
+  Source: "Deploy from a branch" → main / root → Save. Link appears in ~1 min.
+-->
+<style>
+:root{
+  --g:#39ff6a; --gd:#0c5a22; --r:#ff2d3d; --bg:#000; --w:#d8ffe3;
+  --mono:ui-monospace,"SF Mono","Cascadia Mono",Menlo,Consolas,"Roboto Mono","Courier New",monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;background:var(--bg);color:var(--g);font-family:var(--mono);overflow:hidden}
+body{padding:env(safe-area-inset-top,0) env(safe-area-inset-right,0) env(safe-area-inset-bottom,0) env(safe-area-inset-left,0)}
+#rain{position:fixed;inset:0;width:100%;height:100%;opacity:.35;z-index:0}
+body::after{content:"";position:fixed;inset:0;z-index:5;pointer-events:none;
+  background:repeating-linear-gradient(0deg,rgba(0,0,0,.28) 0 1px,transparent 1px 3px)}
+.screen{position:fixed;inset:0;z-index:2;display:none;flex-direction:column;padding:18px;
+  padding-top:max(18px,env(safe-area-inset-top));padding-bottom:max(18px,env(safe-area-inset-bottom));overflow-y:auto}
+.screen.on{display:flex}
+#mute{position:fixed;z-index:9;top:max(10px,env(safe-area-inset-top));right:12px;background:#000a;color:var(--g);
+  border:1px solid var(--gd);border-radius:8px;padding:8px 11px;font:600 13px var(--mono);cursor:pointer}
+#mute:focus-visible,.btn:focus-visible,.logo:focus-visible{outline:2px solid var(--w);outline-offset:3px}
+
+/* landing */
+#land{align-items:center;justify-content:center;text-align:center;gap:22px}
+.logo{cursor:pointer;user-select:none;background:none;border:0;color:inherit;font:inherit}
+.shield{width:92px;height:104px;margin:0 auto 6px;filter:drop-shadow(0 0 12px var(--g))}
+h1{font-size:clamp(26px,8.2vw,54px);line-height:1.08;letter-spacing:.04em;font-weight:800;
+  text-shadow:0 0 12px var(--g),0 0 34px #39ff6a66;max-width:14ch}
+.tag{color:var(--w);font-size:clamp(14px,4vw,18px);max-width:30ch;opacity:.9}
+.btn{font:800 clamp(15px,4.4vw,20px) var(--mono);letter-spacing:.08em;color:#001a08;background:var(--g);
+  border:0;border-radius:6px;padding:18px 26px;cursor:pointer;box-shadow:0 0 0 2px #000,0 0 0 3px var(--g),0 0 28px #39ff6aaa;
+  animation:pulse 1.8s ease-in-out infinite;max-width:100%}
+.btn:active{transform:scale(.97)}
+.btn.alt{background:#000;color:var(--g);animation:none;box-shadow:0 0 0 1px var(--g),0 0 16px #39ff6a55}
+@keyframes pulse{50%{box-shadow:0 0 0 2px #000,0 0 0 3px var(--g),0 0 52px #39ff6aff}}
+.warn{color:var(--r);font-size:13px;max-width:34ch;text-shadow:0 0 8px #ff2d3d88}
+
+/* scan */
+#scan{gap:12px}
+.bar-top{display:flex;justify-content:space-between;font-size:12px;color:var(--gd);padding-right:70px}
+.bar-top b{color:var(--g)}
+.panel{border:1px solid var(--gd);border-radius:8px;background:#010a03e6;padding:12px}
+#term{flex:1;min-height:150px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;
+  font-size:clamp(12px,3.4vw,15px);line-height:1.55}
+.ln{white-space:pre-wrap;word-break:break-word}
+.ln.step{color:var(--w)}
+.ln.log{color:#1f9d44;font-size:.86em}
+.ln.red{color:var(--r);font-weight:700;text-shadow:0 0 8px #ff2d3d88}
+.cur::after{content:"█";animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.prog{height:22px;border:1px solid var(--g);border-radius:4px;overflow:hidden;position:relative}
+#fill{height:100%;width:0;background:repeating-linear-gradient(90deg,var(--g) 0 10px,#1fcf50 10px 12px);box-shadow:0 0 16px var(--g)}
+#pct{display:flex;justify-content:space-between;font-size:13px;margin-top:6px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;font-size:11px;text-align:center}
+.stats div{border:1px solid var(--gd);border-radius:6px;padding:6px 2px}
+.stats b{display:block;font-size:15px}
+#count{position:fixed;inset:0;z-index:4;display:none;align-items:center;justify-content:center;flex-direction:column;
+  background:#000d;font-size:clamp(90px,36vw,220px);font-weight:900;color:var(--r);text-shadow:0 0 40px var(--r)}
+#count small{font-size:15px;letter-spacing:.2em;color:var(--w);text-shadow:none}
+
+/* alert */
+#alert{align-items:center;justify-content:center;text-align:center;background:#1a0003;gap:16px;animation:flash .5s steps(1) infinite}
+#alert h2{font-size:clamp(28px,9vw,58px);color:var(--r);text-shadow:0 0 24px var(--r);max-width:12ch}
+#alert p{color:#ffb3b9}
+@keyframes flash{50%{background:#000}}
+.shake{animation:shake .12s linear infinite}
+@keyframes shake{25%{transform:translate(3px,-2px)}75%{transform:translate(-3px,2px)}}
+
+/* end */
+#end{align-items:center;text-align:center;gap:14px;background:#04110799}
+#end h2{font-size:clamp(30px,9.5vw,60px);line-height:1.05;text-shadow:0 0 18px var(--g);margin-top:14px}
+#end h3{font-size:clamp(17px,5vw,24px);color:var(--w)}
+.checks{list-style:none;text-align:left;font-size:clamp(14px,4vw,17px);line-height:1.9;color:var(--w)}
+.checks li::before{content:"✔ ";color:var(--g)}
+.remember{font-size:13px;color:#7fbf92}
+.quote{font-size:clamp(15px,4.2vw,19px);max-width:34ch;line-height:1.5;border:1px dashed var(--g);border-radius:8px;padding:14px}
+.small{font-size:clamp(14px,4vw,17px)}
+.row{display:flex;flex-direction:column;gap:12px;width:100%;max-width:360px;margin-top:4px;padding-bottom:12px}
+.emo{position:fixed;top:-40px;font-size:26px;z-index:3;pointer-events:none;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(112vh) rotate(360deg)}}
+#toast{position:fixed;z-index:10;left:50%;bottom:max(24px,env(safe-area-inset-bottom));transform:translateX(-50%) translateY(30px);
+  background:var(--g);color:#001a08;font-weight:800;padding:12px 18px;border-radius:8px;opacity:0;transition:.3s;pointer-events:none;text-align:center}
+#toast.on{opacity:1;transform:translateX(-50%)}
+@media (prefers-reduced-motion:reduce){.btn,#alert,.shake{animation:none}}
+</style>
+</head>
+<body>
+<canvas id="rain" aria-hidden="true"></canvas>
+<button id="mute" aria-label="Toggle sound">🔊 SOUND ON</button>
+
+<!-- LANDING -->
+<main id="land" class="screen on">
+  <button class="logo" id="logo" aria-label="Maslah logo">
+    <svg class="shield" viewBox="0 0 92 104" fill="none" stroke="#39ff6a" stroke-width="3" aria-hidden="true">
+      <path d="M46 4 6 20v32c0 26 17 42 40 48 23-6 40-22 40-48V20z"/>
+      <path d="M26 64V38l20 18 20-18v26" stroke-width="5" stroke-linejoin="round"/>
+    </svg>
+  </button>
+  <h1>MASLAH CYBER SECURITY TERMINAL</h1>
+  <p class="tag">“Your digital security is about to be tested.”</p>
+  <button class="btn" id="go">[ INITIATE SYSTEM SCAN ]</button>
+  <p class="warn">Warning: Unauthorised access is strictly prohibited.</p>
+</main>
+
+<!-- SCAN -->
+<section id="scan" class="screen">
+  <div class="bar-top"><span>MASLAH-CIN // <b>SECURE NODE 07</b></span><span id="clock"></span></div>
+  <div class="stats">
+    <div>THREAT<b id="s1">LOW</b></div><div>PACKETS<b id="s2">0</b></div><div>LAYERS<b id="s3">0/12</b></div>
+  </div>
+  <div class="panel" id="term" aria-live="off"></div>
+  <div>
+    <div class="prog"><div id="fill"></div></div>
+    <div id="pct"><span id="stage">STANDBY</span><b id="num">0%</b></div>
+  </div>
+</section>
+<div id="count"><span id="cn">3</span><small>FINAL ASSESSMENT</small></div>
+
+<!-- ALERT -->
+<section id="alert" class="screen" aria-live="assertive">
+  <h2 class="shake">⚠️ CRITICAL SECURITY ALERT!</h2>
+  <p>Final assessment complete…</p>
+</section>
+
+<!-- END -->
+<section id="end" class="screen">
+  <h2>😂😂 YOU’VE BEEN PRANKED!</h2>
+  <h3>RELAX! NOTHING HAS BEEN HACKED!</h3>
+  <ul class="checks">
+    <li>No M-PESA balance accessed.</li>
+    <li>No WhatsApp messages accessed.</li>
+    <li>No passwords stolen.</li>
+    <li>No personal information collected.</li>
+  </ul>
+  <p class="small">You just survived Maslah’s imaginary cyberattack! 😂</p>
+  <p class="remember">BUT REMEMBER…</p>
+  <p class="small">“Maslah knows technology. Stay alert! 😎”</p>
+  <p class="quote">You thought you were being hacked. Meanwhile, Maslah was just sitting somewhere in Kenya enjoying your reaction. 😂🇰🇪</p>
+  <div class="row">
+    <button class="btn" id="again">[ RUN ANOTHER SCAN ]</button>
+    <button class="btn alt" id="share">[ SHARE THIS PRANK ]</button>
+  </div>
+</section>
+<div id="toast" role="status"></div>
+
+<script>
+(()=>{
+"use strict";
+const $=s=>document.querySelector(s), sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const show=id=>{document.querySelectorAll(".screen").forEach(s=>s.classList.toggle("on",s.id===id))};
+const toast=(t,ms=2200)=>{const e=$("#toast");e.textContent=t;e.classList.add("on");clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove("on"),ms)};
+
+/* ---------- Matrix rain ---------- */
+const cv=$("#rain"),cx=cv.getContext("2d");let cols=[],fs=16;
+function sizeRain(){cv.width=innerWidth;cv.height=innerHeight;cols=Array(Math.ceil(cv.width/fs)).fill(0).map(()=>Math.random()*-50)}
+addEventListener("resize",sizeRain);sizeRain();
+const chars="アイウエオカキクケコサシスセソ0123456789ABCDEF<>/{}#$%";
+setInterval(()=>{
+  cx.fillStyle="rgba(0,0,0,.09)";cx.fillRect(0,0,cv.width,cv.height);
+  cx.fillStyle="#39ff6a";cx.font=fs+"px monospace";
+  cols.forEach((y,i)=>{
+    cx.fillText(chars[Math.random()*chars.length|0],i*fs,y*fs);
+    cols[i]=(y*fs>cv.height&&Math.random()>.975)?0:y+1;
+  });
+},55);
+
+/* ---------- Sound (WebAudio, no files) ---------- */
+let ac,muted=false;
+function A(){if(!ac){const C=window.AudioContext||window.webkitAudioContext;if(C)ac=new C()}
+  if(ac&&ac.state==="suspended")ac.resume();return ac}
+function tone(f,d=.1,type="square",v=.05,to=null,delay=0){
+  if(muted)return;const c=A();if(!c)return;
+  const t=c.currentTime+delay,o=c.createOscillator(),g=c.createGain();
+  o.type=type;o.frequency.setValueAtTime(f,t);if(to)o.frequency.exponentialRampToValueAtTime(to,t+d);
+  g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);
+  o.connect(g).connect(c.destination);o.start(t);o.stop(t+d+.02);
+}
+const sfx={
+  key:()=>tone(900+Math.random()*500,.03,"square",.015),
+  step:()=>{tone(660,.08,"sine",.07);tone(990,.1,"sine",.05,null,.09)},
+  warn:()=>{for(let i=0;i<3;i++)tone(220,.18,"sawtooth",.08,160,i*.22)},
+  tick:()=>tone(1200,.06,"square",.07),
+  alarm:()=>{for(let i=0;i<8;i++){tone(880,.22,"sawtooth",.1,520,i*.28)}},
+  funny:()=>{tone(1400,.55,"sine",.12,180);
+    [520,620,520,620,780].forEach((f,i)=>tone(f,.09,"square",.07,f*.8,.65+i*.12));
+    tone(120,.4,"triangle",.14,60,1.3)}
+};
+$("#mute").onclick=()=>{muted=!muted;$("#mute").textContent=muted?"🔇 SOUND OFF":"🔊 SOUND ON"};
+
+/* ---------- Content ---------- */
+const STEPS=[
+ "Initialising secure connection...","Establishing encrypted communication...","Detecting device type...",
+ "Analysing network protocols...","Scanning digital security layers...","Checking simulated M-PESA security status...",
+ "Analysing fictional transaction records...","Searching for suspicious digital activities...",
+ "Running artificial intelligence diagnostics...","Connecting to Maslah’s Cyber Intelligence Network...",
+ "Accessing fictional security database...","Generating digital identity report..."];
+const WARN={3:"[WARNING] Suspicious digital activity detected!",
+ 7:"[ALERT] Your device has attracted the attention of Maslah Cyber Intelligence!",
+ 11:"[SYSTEM] Final security assessment in progress..."};
+const hex=n=>Array.from({length:n},()=>(Math.random()*16|0).toString(16)).join("");
+const LOGS=[
+ ()=>`SYN→ 10.${r(255)}.${r(255)}.${r(255)}:${[22,80,443,8080][r(4)]} ack=0x${hex(6)}`,
+ ()=>`[sim] handshake TLS1.3 key=${hex(16)}`,
+ ()=>`[sim] port sweep ${r(9000)+100}/tcp ... filtered`,
+ ()=>`[sim] hash ${hex(24)} ... OK`,
+ ()=>`[sim] decrypting block 0x${hex(4)} ... ${r(99)}%`,
+ ()=>`[sim] trace route hop ${r(30)+1} ${r(120)+8}ms`,
+ ()=>`[sim] firewall rule #${r(900)+100} bypassed (fictional)`,
+ ()=>`[sim] AI model inference ${(Math.random()).toFixed(4)} conf`,
+ ()=>`[sim] kernel module 0x${hex(8)} verified`];
+function r(n){return Math.random()*n|0}
+
+/* ---------- Terminal helpers ---------- */
+const term=$("#term");
+function line(txt,cls=""){
+  const d=document.createElement("div");d.className="ln "+cls;d.textContent=txt;term.appendChild(d);
+  while(term.children.length>40)term.removeChild(term.firstChild);return d;
+}
+async function type(txt,cls){
+  const d=line("",cls+" cur");
+  for(const ch of txt){d.textContent+=ch;if(ch!==" ")sfx.key();await sleep(14+r(18))}
+  d.classList.remove("cur");
+}
+let pct=0;
+function setPct(p){pct=Math.min(100,p);$("#fill").style.width=pct+"%";$("#num").textContent=Math.floor(pct)+"%"}
+setInterval(()=>{const d=new Date();$("#clock").textContent=d.toLocaleTimeString([],{hour12:false})},1000);
+
+/* ---------- The prank sequence ---------- */
+let running=false,token=0;
+async function run(){
+  if(running)return;running=true;const my=++token;
+  A();term.innerHTML="";setPct(0);$("#s1").textContent="LOW";$("#s2").textContent="0";$("#s3").textContent="0/12";
+  $("#stage").textContent="INITIALISING";show("scan");
+  let pk=0;const pkT=setInterval(()=>{pk+=r(900)+100;$("#s2").textContent=pk.toLocaleString()},180);
+  const per=1700;
+  for(let i=0;i<STEPS.length;i++){
+    if(my!==token)break;
+    sfx.step();$("#s3").textContent=(i+1)+"/12";$("#stage").textContent="STEP "+(i+1)+" OF 12";
+    const target=Math.min(98,(i+1)/12*98),start=pct;
+    const typing=type(`[${String(i+1).padStart(2,"0")}] ${STEPS[i]}`,"step");
+    const t0=Date.now();
+    const logT=setInterval(()=>line(LOGS[r(LOGS.length)](),"log"),260);
+    const progT=setInterval(()=>{const k=Math.min(1,(Date.now()-t0)/per);setPct(start+(target-start)*k)},50);
+    await typing;await sleep(Math.max(0,per-(Date.now()-t0)));
+    clearInterval(logT);clearInterval(progT);setPct(target);
+    if(WARN[i]){sfx.warn();$("#s1").textContent=i<8?"MEDIUM":"HIGH";line(WARN[i],"red");await sleep(700)}
+  }
+  clearInterval(pkT);if(my!==token){running=false;return}
+  // dramatic countdown
+  $("#stage").textContent="FINALISING";setPct(99);
+  $("#count").style.display="flex";
+  for(const n of [3,2,1]){$("#cn").textContent=n;sfx.tick();await sleep(900)}
+  $("#count").style.display="none";
+  setPct(100);await sleep(250);
+  // the twist
+  show("alert");sfx.alarm();await sleep(2200);
+  show("end");sfx.funny();rainEmoji();running=false;
+}
+function rainEmoji(){
+  const set=["😂","🤣","😎","🇰🇪","💚","🕶️"];
+  for(let i=0;i<22;i++){
+    const e=document.createElement("div");e.className="emo";e.textContent=set[r(set.length)];
+    e.style.left=r(94)+"vw";e.style.animationDuration=(2.2+Math.random()*2.5)+"s";e.style.animationDelay=Math.random()*1.4+"s";
+    document.body.appendChild(e);setTimeout(()=>e.remove(),6500);
+  }
+}
+
+/* ---------- Buttons ---------- */
+$("#go").onclick=run;
+$("#again").onclick=()=>{running=false;run()};
+$("#share").onclick=async()=>{
+  const data={title:"MASLAH CYBER SECURITY TERMINAL",
+    text:"Your digital security is about to be tested… dare to click? 😈 (harmless prank)",url:location.href};
+  try{
+    if(navigator.share){await navigator.share(data);return}
+    await navigator.clipboard.writeText(location.href);toast("Link copied! Paste it on WhatsApp 😂");
+  }catch(e){
+    if(e&&e.name==="AbortError")return;
+    const t=document.createElement("textarea");t.value=location.href;document.body.appendChild(t);t.select();
+    try{document.execCommand("copy");toast("Link copied! Paste it on WhatsApp 😂")}catch(_){toast("Copy this page’s link from your browser bar")}
+    t.remove();
+  }
+};
+
+/* ---------- Easter egg: tap logo 5 times ---------- */
+let taps=0,tapT;
+$("#logo").onclick=()=>{
+  taps++;clearTimeout(tapT);tapT=setTimeout(()=>taps=0,2000);
+  tone(500+taps*120,.08,"sine",.06);
+  if(taps>=5){taps=0;toast("😎 Maslah was here!",3200);sfx.funny()}
+};
+})();
+</script>
+</body>
+</html>
